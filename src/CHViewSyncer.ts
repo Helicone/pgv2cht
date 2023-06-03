@@ -33,6 +33,7 @@ export class ClickhouseLiveDataSyncer {
       this.postgres_settings
     );
     backfiller.runRange(startTime, endTime);
+    backfiller.deduplicate();
   }
 
   async run(): Promise<void> {

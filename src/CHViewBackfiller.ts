@@ -65,14 +65,14 @@ export class CHViewBackfiller {
   }
 
   getQuery(start: Date, end: Date): string {
-    const startString = moment(start).format("YYYY-MM-DD HH:mm:ss");
-    const endString = moment(end).format("YYYY-MM-DD HH:mm:ss");
+    const startString = moment(start).format("YYYY-MM-DD HH:mm:ss.SSS");
+    const endString = moment(end).format("YYYY-MM-DD HH:mm:ss.SSS");
     return `INSERT INTO ${this.targetTable()}
     SELECT *
     FROM ${this.pgTable.clickhouseTable()} as pg_table
     WHERE (
-        pg_table.${this.dateColumn()} < toDateTime('${endString}', 'UTC')
-        AND pg_table.${this.dateColumn()} >= toDateTime('${startString}', 'UTC')
+        pg_table.${this.dateColumn()} < toDateTime64('${endString}',3, 'UTC')
+        AND pg_table.${this.dateColumn()} >= toDateTime64('${startString}', 3, 'UTC')
     );`;
   }
 
