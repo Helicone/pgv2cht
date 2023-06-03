@@ -1,0 +1,17 @@
+{
+  "target-table": "property_with_response_v1",
+  "source-view": "properties_with_response_ch_v1",
+  "source-date-column": "request_created_at",
+  "deduplication-query": "OPTIMIZE TABLE property_with_response_v1 FINAL DEDUPLICATE BY organization_id, user_id, property_key, request_created_at, status, model, request_id;",
+  "backfill-settings": {
+    "date-range": {
+      "start": "2023-01-01",
+      "end": "2023-06-03"
+    },
+    "minute-step": 15
+  },
+  "sync-settings": {
+    "minute-step": 15,
+    "minute-tolerance": 1
+  }
+}
