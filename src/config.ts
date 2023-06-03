@@ -13,6 +13,7 @@ export interface Config {
   sync_settings?: {
     minute_step: number;
     minute_tolerance: number;
+    minute_delay: number;
   };
 }
 
@@ -64,9 +65,14 @@ function validateSyncConfig(config: any): Config["sync_settings"] {
     throw new Error("sync_settings.minute_tolerance is not set");
   }
 
+  if (!config["sync-settings"]["minute-delay"]) {
+    throw new Error("sync_settings.minute_delay is not set");
+  }
+
   return {
     minute_step: config["sync-settings"]["minute-step"],
     minute_tolerance: config["sync-settings"]["minute-tolerance"],
+    minute_delay: config["sync-settings"]["minute-delay"],
   };
 }
 

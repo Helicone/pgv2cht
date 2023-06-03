@@ -129,8 +129,7 @@ yargs.command({
         user: env.POSTGRES_USER,
       },
       {
-        minute_step: config.sync_settings.minute_step,
-        minute_tolerance: config.sync_settings.minute_tolerance,
+        ...config.sync_settings,
       }
     );
     await syncer.run();
