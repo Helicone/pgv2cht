@@ -10,6 +10,18 @@ export class DateIterator {
   }
 
   next(): Date {
+    if (!this.hasNext()) {
+      throw new Error("DateIterator.next() called when hasNext() is false");
+    }
+
+    if (
+      this.current_date.getTime() + this.minute_step * 60 * 1000 >
+      this.end_date.getTime()
+    ) {
+      this.current_date = new Date(this.end_date);
+      return this.current_date;
+    }
+
     this.current_date = new Date(
       this.current_date.getTime() + this.minute_step * 60 * 1000
     );
@@ -20,7 +32,7 @@ export class DateIterator {
   }
 
   hasNext(): boolean {
-    return this.current_date < this.end_date;
+    return this.current_date.getTime() < this.end_date.getTime();
   }
 
   peakNext(): Date {

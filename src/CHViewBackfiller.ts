@@ -64,10 +64,7 @@ export class CHViewBackfiller {
     return this.postgres_settings.source_table.date_column;
   }
 
-  getNextQuery(): string {
-    const start = this.date_iterator.current();
-    const end = this.date_iterator.next();
-
+  getQuery(start: Date, end: Date): string {
     const startString = moment(start).format("YYYY-MM-DD HH:mm:ss");
     const endString = moment(end).format("YYYY-MM-DD HH:mm:ss");
     return `INSERT INTO ${this.targetTable()}
@@ -79,6 +76,13 @@ export class CHViewBackfiller {
     );`;
   }
 
+  getNextQuery(): string {
+    const start = this.date_iterator.current();
+    const end = this.date_iterator.next();
+
+    return this.getQuery(start, end);
+  }
+
   async run(): Promise<void> {
     await this.runNext();
 
@@ -87,6 +91,13 @@ export class CHViewBackfiller {
     } else {
       console.log("Finished");
     }
+  }
+
+  async runRange(start: Date, end: Date): Promise<void> {
+    console.log("Running migration between", start, "and", end);
+    const query = this.getQuery(start, end);
+    const result = await this.clickhouse_client.dbExecute(query);
+    console.log("Successfully ran migration, query id: ", result.query_id);
   }
 
   async runNext(): Promise<void> {
