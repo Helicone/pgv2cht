@@ -1,6 +1,6 @@
 #### Project status
 
-<i>This project started on June 2nd 2023, and is super alpha. You might experience bugs and undesired behavior! Please proceed with caution.</i>
+<i>This project started on June 2nd 2023, and is super alpha. You might experience bugs or undesired behavior! Please proceed with caution.</i>
 
 # pgv2chtx
 
