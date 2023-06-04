@@ -1,12 +1,14 @@
-# pgv2cht
+#### Project status
 
-Postgres View -> Clickhouse Table
+<i>This project started on June 2nd 2023, and is super alpha. You might experience bugs and undesired behavior! Please proceed with caution.</i>
+
+# pgv2chtx
+
+Postgres View -> Clickhouse Table ETL tool
 
 ## Why?
 
-This tool helps migrate data and sync it between postgres and
-
-The way this package work is that
+You have data on Postgres, but want to read that data in Clickhouse for the performance benefits.
 
 # How to use this package...
 
